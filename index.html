@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人作品集 · 新闻学 / PORTFOLIO 2026</title>
+<style>
+:root{
+  --paper:#F6F4EF; --paper-2:#EFEDE6; --white:#FFFFFF; --page:#FCFBF8;
+  --ink:#1C1B19; --muted:#6B675F; --faint:#8A867E; --line:#DCD8CF;
+  --accent:#3A536B; --accent-soft:#A9BDD0; --dark:#1C1B19;
+  --serif:"Source Han Serif CN","Songti SC","STSong","Noto Serif CJK SC","SimSun",serif;
+  --sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --latin:"Inter Tight","Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.7}
+img{display:block;max-width:100%}
+button,input{font-family:inherit}
+button{cursor:pointer;border:0;background:none;color:inherit}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#fff}
+.wrap{width:min(1200px,calc(100% - 96px));margin:0 auto}
+.serif{font-family:var(--serif)}
+.latin{font-family:var(--latin)}
+
+/* progress + topbar */
+#progress{position:fixed;left:0;top:0;height:2px;width:0;background:var(--accent);z-index:99;transition:width .1s linear}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(246,244,239,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topbar .wrap{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font-family:var(--latin);font-size:12px;letter-spacing:.28em;font-weight:500;white-space:nowrap}
+.navlinks{display:flex;gap:26px;font-size:13px;color:var(--muted);white-space:nowrap}
+.navlinks a{position:relative;padding:6px 0;transition:color .25s}
+.navlinks a:hover,.navlinks a.active{color:var(--ink)}
+.navlinks a.active::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--accent)}
+.topbar .who{font-size:12px;color:var(--accent);letter-spacing:.08em;white-space:nowrap}
+
+/* hero */
+.hero{padding:104px 0 112px}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:80px;align-items:center}
+.eyebrow{font-family:var(--latin);font-size:11px;letter-spacing:.34em;color:var(--accent);font-weight:500;text-transform:uppercase}
+h1{font-family:var(--serif);font-size:clamp(48px,5vw,72px);line-height:1.36;font-weight:600;letter-spacing:.04em;margin:26px 0 24px}
+.hero-sub{font-size:15px;color:var(--muted);line-height:2}
+.btn-primary{display:inline-flex;align-items:center;gap:14px;background:var(--ink);color:#fff;padding:17px 30px;font-size:14px;letter-spacing:.14em;margin-top:38px;transition:transform .25s,background .25s}
+.btn-primary:hover{background:var(--accent);transform:translateY(-2px)}
+.btn-primary svg{width:16px;height:16px}
+.hero-meta{font-family:var(--latin);font-size:11px;letter-spacing:.2em;color:var(--faint);margin-top:26px}
+.hero-visual img{width:100%;height:520px;object-fit:cover;background:#D8D5CC}
+.hero-visual figcaption{text-align:right;font-size:11px;letter-spacing:.18em;color:var(--faint);margin-top:14px}
+
+/* section frame */
+.section{padding:112px 0;border-top:1px solid var(--line)}
+.section.alt{background:var(--paper-2)}
+.section.dark{background:var(--dark);color:var(--paper);border-top:0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:52px}
+.sec-head h2{font-family:var(--serif);font-size:clamp(38px,4vw,52px);font-weight:600;line-height:1.25;margin:12px 0}
+.sec-desc{font-size:14px;color:var(--muted)}
+.dark .sec-desc{color:#9B978F}
+.dark .eyebrow{color:var(--accent-soft)}
+.ghost{font-family:var(--latin);font-weight:300;font-size:clamp(80px,9vw,128px);line-height:1;color:#E2DED4;letter-spacing:-.02em;user-select:none}
+.alt .ghost{color:#DAD6CB}
+.dark .ghost{color:#34322E}
+.hairline{height:1px;background:var(--line);width:100%}
+.dark .hairline{background:#3A3833}
+
+/* about + contents */
+.about-block{margin-bottom:96px}
+.label-row{display:flex;align-items:center;gap:24px;margin-bottom:40px}
+.label-row .hairline{flex:1}
+.about-grid{display:grid;grid-template-columns:1fr 340px;gap:96px}
+.about-lead{font-family:var(--serif);font-size:30px;line-height:1.75;margin-bottom:24px}
+.about-body p{font-size:15px;line-height:2;color:var(--muted);margin-bottom:12px;max-width:680px}
+.about-body p:last-child{color:var(--faint);font-size:14px}
+.info{border-top:1px solid #C9C5BA;padding-top:22px}
+.info-list{font-size:14px;line-height:3;color:#3A3833}
+.info-note{font-size:11px;color:#A09C93;letter-spacing:.08em;margin-top:12px}
+.contents{display:grid;grid-template-columns:1fr 1fr;gap:30px 80px;margin-top:36px}
+.contents a{display:flex;align-items:baseline;gap:20px;font-family:var(--serif);font-size:21px;letter-spacing:.04em;padding:8px 0;border-bottom:1px solid transparent;transition:border-color .25s,transform .25s}
+.contents a:hover{border-color:var(--accent);transform:translateX(6px)}
+.contents .num{font-family:var(--latin);font-size:13px;letter-spacing:.14em;color:var(--accent);min-width:26px}
+.contents .en{font-family:var(--latin);font-size:11px;letter-spacing:.18em;color:var(--faint);margin-left:auto}
+
+/* photo flip book */
+.book{position:relative;display:grid;grid-template-columns:1fr 1fr;height:560px;background:var(--white);box-shadow:0 24px 60px rgba(28,27,25,.10);perspective:1800px;overflow:hidden}
+.book::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:#E4E0D6;z-index:6;pointer-events:none}
+.book-left{padding:28px;display:flex;flex-direction:column;gap:16px;background:var(--white);min-width:0}
+.book-left .shot{flex:1;min-height:0;overflow:hidden;background:#D8D5CC}
+.book-left .shot img{width:100%;height:100%;object-fit:cover;transition:opacity .35s}
+.book-left figcaption{font-family:var(--latin);font-size:11px;letter-spacing:.18em;color:var(--faint);text-align:right}
+.book-right{padding:52px 48px;background:var(--page);display:flex;flex-direction:column;gap:16px;min-width:0;overflow:hidden}
+.book-right .r-num{font-family:var(--latin);font-size:11px;letter-spacing:.3em;color:var(--accent);font-weight:500}
+.book-right h3{font-family:var(--serif);font-size:44px;font-weight:600;line-height:1.2;letter-spacing:.04em}
+.book-right .r-en{font-family:var(--latin);font-size:11px;letter-spacing:.28em;color:var(--faint);margin-top:-8px}
+.book-right .r-desc{font-size:14px;line-height:2;color:var(--muted);max-width:440px}
+.book-right .r-meta{font-size:13px;letter-spacing:.06em;color:var(--accent)}
+.mini-label{font-size:11px;color:var(--faint);letter-spacing:.1em;margin-top:2px}
+.minis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:2px}
+.minis button{height:74px;padding:0;overflow:hidden;border:2px solid transparent;background:#D6D2C8;transition:border-color .25s,opacity .25s;opacity:.72}
+.minis button img{width:100%;height:100%;object-fit:cover}
+.minis button:hover{opacity:1}
+.minis button.on{border-color:var(--accent);opacity:1}
+.r-hint{font-size:11px;color:var(--faint);letter-spacing:.06em;margin-top:auto}
+.page-flap{position:absolute;top:0;right:0;width:50%;height:100%;transform-origin:left center;backface-visibility:hidden;z-index:8;box-shadow:16px 0 46px rgba(28,27,25,.16)}
+.page-flap::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(28,27,25,.10),rgba(28,27,25,0) 22%,rgba(28,27,25,0) 82%,rgba(28,27,25,.06));pointer-events:none}
+.page-flap.flip-next{animation:flipNext .72s cubic-bezier(.42,.03,.24,1) forwards}
+.page-flap.flip-prev{animation:flipPrev .72s cubic-bezier(.42,.03,.24,1) forwards}
+@keyframes flipNext{0%{transform:rotateY(0)}100%{transform:rotateY(-176deg)}}
+@keyframes flipPrev{0%{transform:rotateY(-176deg)}100%{transform:rotateY(0)}}
+.book-nav{display:flex;align-items:center;gap:24px;margin-top:36px}
+.round{width:48px;height:48px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;flex:none;transition:background .25s,transform .25s}
+.round:hover{background:var(--accent);transform:scale(1.06)}
+.round.next{background:var(--accent)}
+.round svg{width:20px;height:20px}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;flex:1}
+.tab{text-align:left;display:flex;flex-direction:column;gap:10px;opacity:.6;transition:opacity .25s}
+.tab:hover,.tab.on{opacity:1}
+.tab .thumb{height:76px;background:#D6D2C8;overflow:hidden;border:2px solid transparent;transition:border-color .25s}
+.tab.on .thumb{border-color:var(--accent)}
+.tab .thumb img{width:100%;height:100%;object-fit:cover}
+.tab span{font-size:12px;letter-spacing:.06em;color:var(--muted)}
+.tab.on span{color:var(--ink);font-weight:500}
+.page-no{font-family:var(--latin);font-size:13px;letter-spacing:.22em;color:var(--accent);white-space:nowrap}
+.flip-tip{font-size:12px;color:var(--faint);margin-top:20px;letter-spacing:.04em}
+
+/* video */
+.video-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:56px;align-items:start}
+.player{position:relative;background:var(--dark);aspect-ratio:16/9;overflow:hidden}
+.player-stage{position:absolute;inset:0}
+.player-stage img{width:100%;height:100%;object-fit:cover}
+.player-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.24),transparent 32%,transparent 62%,rgba(0,0,0,.42))}
+.player-badge{position:absolute;left:26px;top:22px;font-family:var(--latin);font-size:11px;letter-spacing:.26em;color:#fff}
+.play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;background:rgba(246,244,239,.94);display:grid;place-items:center;transition:transform .25s,background .25s}
+.play:hover{transform:translate(-50%,-50%) scale(1.08);background:#fff}
+.play svg{width:22px;height:22px;margin-left:4px}
+.player-bottom{position:absolute;left:26px;right:26px;bottom:20px}
+.track{height:2px;background:rgba(255,255,255,.38);position:relative}
+.track i{position:absolute;left:0;top:0;height:2px;width:30%;background:#F6F4EF}
+.timecode{font-family:var(--latin);font-size:11px;letter-spacing:.16em;color:#F6F4EF;margin-top:8px}
+.player video{position:absolute;inset:0;width:100%;height:100%;background:#000;object-fit:contain}
+.embed-box{position:absolute;inset:0}
+.embed-box iframe{width:100%;height:100%;border:0}
+.video-list{padding-top:6px}
+.video-list h4{font-family:var(--latin);font-size:11px;letter-spacing:.26em;color:var(--accent);font-weight:500;margin-bottom:20px}
+.work-item{display:block;width:100%;text-align:left;padding:16px 0;border-top:1px solid #E7E4DC;transition:padding-left .25s,color .25s}
+.work-item:hover,.work-item.on{padding-left:10px}
+.work-item strong{display:block;font-size:15px;font-weight:500;color:var(--ink)}
+.work-item small{display:block;font-size:12px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
+.work-item.on strong{color:var(--accent)}
+.video-tools{margin-top:22px}
+.tool-row{display:flex;flex-wrap:wrap;gap:10px}
+.tool{font-size:12px;letter-spacing:.08em;padding:12px 18px;background:var(--ink);color:#fff;transition:background .25s}
+.tool:hover{background:var(--accent)}
+.tool.ghost-btn{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.tool.ghost-btn:hover{background:var(--white);color:var(--ink)}
+.embed-row{display:flex;gap:8px;margin-top:12px}
+.embed-row input{flex:1;min-width:0;padding:11px 14px;border:1px solid var(--line);background:var(--white);font-size:13px;outline:none}
+.embed-row input:focus{border-color:var(--accent)}
+.status{font-size:12px;color:var(--faint);margin-top:12px;line-height:1.9}
+.meta-row{display:flex;justify-content:space-between;align-items:baseline;gap:24px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
+.meta-row h3{font-family:var(--serif);font-size:22px;font-weight:400}
+.meta-row span{font-size:12px;color:var(--faint)}
+
+/* writing */
+.write-row{display:grid;grid-template-columns:110px 1fr 236px;gap:40px;align-items:center;padding:30px 0;border-top:1px solid var(--line)}
+.write-row:last-child{border-bottom:1px solid var(--line)}
+.write-num{font-family:var(--latin);font-size:78px;font-weight:300;line-height:1;color:#D3CFC4}
+.write-row h3{font-family:var(--serif);font-size:26px;font-weight:600;margin-bottom:10px}
+.write-row p{font-size:14px;line-height:2;color:var(--muted)}
+.write-row .data{font-size:12px;color:var(--accent);margin-top:10px;letter-spacing:.06em}
+.write-thumb{height:148px;overflow:hidden;background:#D6D2C8}
+.write-thumb img{width:100%;height:100%;object-fit:cover;filter:grayscale(1);transition:filter .4s,transform .4s}
+.write-row:hover .write-thumb img{filter:grayscale(0);transform:scale(1.04)}
+
+/* layout samples */
+.layout-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:32px}
+.sample{background:#fff;border:1px solid var(--line);position:relative;overflow:hidden}
+.sample::after{content:attr(data-label);position:absolute;left:26px;bottom:22px;font-family:var(--latin);font-size:10px;letter-spacing:.26em;color:#6B675F}
+.sample-main{height:400px;background:linear-gradient(120deg,#DBD7CD 0%,#9AA7AC 100%)}
+.sample-main::before{content:"";position:absolute;left:9%;top:14%;width:38%;height:72%;background:rgba(255,255,255,.72);box-shadow:0 8px 30px rgba(0,0,0,.08)}
+.sample-sm{height:184px;background:#F1EFE8}
+.sample-sm::before{content:"";position:absolute;left:12%;top:20%;width:32%;height:60%;background:rgba(58,83,107,.16)}
+.sample-col{display:grid;grid-template-rows:auto auto;gap:26px}
+.sample-cap{font-size:13px;color:var(--muted);letter-spacing:.04em;margin-top:12px}
+.placeholder-note{font-size:12px;color:var(--faint);margin-top:24px}
+
+/* post dark */
+.post-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:56px;align-items:center}
+.wave{height:240px;display:flex;align-items:center;gap:5px;position:relative}
+.wave::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#45433E}
+.wave i{display:block;flex:1;background:var(--accent-soft);border-radius:3px;min-width:3px;opacity:.9}
+.wave::before{content:"";position:absolute;left:44%;top:6%;bottom:6%;width:1px;background:rgba(246,244,239,.7);z-index:2}
+.post-list>div{padding:18px 0;border-top:1px solid #3A3833}
+.post-list strong{display:block;font-size:15px;font-weight:500;color:var(--paper);margin-bottom:6px}
+.post-list span{font-size:13px;color:#B9B5AC;line-height:1.9}
+.post-spec{font-size:12px;color:var(--accent-soft);letter-spacing:.08em;margin-top:20px}
+
+/* directing */
+.project-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.project{background:#fff;border:1px solid var(--line);padding:32px;display:flex;flex-direction:column;gap:14px;transition:box-shadow .3s,transform .3s}
+.project:hover{box-shadow:0 18px 40px rgba(28,27,25,.08);transform:translateY(-3px)}
+.project .p-num{font-family:var(--latin);font-size:11px;letter-spacing:.24em;color:var(--accent)}
+.project h3{font-family:var(--serif);font-size:26px;font-weight:600}
+.project .role{font-size:13px;color:var(--accent);letter-spacing:.06em}
+.project p{font-size:14px;line-height:2;color:var(--muted)}
+.project .p-data{font-size:12px;color:var(--faint);margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+.workflow{margin-top:52px}
+.workflow .steps{font-family:var(--serif);font-size:24px;letter-spacing:.1em;margin-top:16px}
+.workflow p{font-size:13px;color:var(--faint);margin-top:12px}
+
+/* footer */
+footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
+.foot-top{display:flex;justify-content:space-between;align-items:center;gap:30px}
+.foot-top h2{font-family:var(--serif);font-size:44px;font-weight:600}
+.foot-top a{font-family:var(--latin);font-size:16px;letter-spacing:.12em;color:var(--accent-soft);border-bottom:1px solid rgba(169,189,208,.4);padding-bottom:4px}
+.foot-line{height:1px;background:#3A3833;margin:44px 0 26px}
+.foot-bottom{display:flex;justify-content:space-between;font-size:12px;color:#7E7A72;letter-spacing:.08em}
+.foot-mark{font-family:var(--latin);font-size:clamp(60px,10vw,120px);font-weight:300;letter-spacing:.06em;color:#26241F;line-height:1;margin-top:50px;user-select:none}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .75s ease,transform .75s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:1000px){
+  .wrap{width:calc(100% - 56px)}
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .hero-visual img{height:400px}
+  .about-grid,.video-grid,.post-grid{grid-template-columns:1fr;gap:40px}
+  .book{grid-template-columns:1fr 1fr;height:auto;min-height:520px}
+  .book-right{padding:36px 28px}
+  .book-right h3{font-size:34px}
+  .write-row{grid-template-columns:76px 1fr;gap:24px}
+  .write-thumb{grid-column:2;height:180px}
+  .write-num{font-size:56px}
+  .layout-grid,.project-grid{grid-template-columns:1fr}
+  .navlinks{display:none}
+  .ghost{font-size:80px}
+}
+@media(max-width:640px){
+  .wrap{width:calc(100% - 36px)}
+  .section{padding:76px 0}
+  .hero{padding:64px 0 76px}
+  .sec-head{align-items:flex-start}
+  .ghost{font-size:56px}
+  .book{display:block;height:auto;overflow:visible}
+  .book::after{display:none}
+  .book-left .shot{height:280px;flex:none}
+  .book-right{min-height:420px}
+  .page-flap{width:100%;height:100%}
+  .tabs{grid-template-columns:repeat(2,1fr)}
+  .book-nav{flex-wrap:wrap}
+  .page-no{order:3;margin-left:auto}
+  .contents{grid-template-columns:1fr;gap:14px 0}
+  .contents .en{display:none}
+  .foot-top{flex-direction:column;align-items:flex-start}
+  .foot-bottom{flex-direction:column;gap:10px}
+  .topbar .who{display:none}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">PORTFOLIO / 2026</div>
+    <nav class="navlinks" id="nav">
+      <a href="#photo">摄影</a><a href="#video">摄像</a><a href="#writing">文案</a>
+      <a href="#layout">排版</a><a href="#post">后期</a><a href="#directing">编导</a><a href="#contact">联系</a>
+    </nav>
+    <div class="who">姓名待填 · 新闻学</div>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <div class="eyebrow">PERSONAL PORTFOLIO — 2026</div>
+      <h1>看见现场，<br>也写下现场</h1>
+      <p class="hero-sub">新闻学专业 · 本科四年级　｜　摄影 / 摄像 / 文案 / 排版 / 后期 / 编导</p>
+      <a class="btn-primary" href="#about">浏览作品
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 2V14M8 14L3 9M8 14L13 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="hero-meta">6 个板块　/　24 组作品　/　更新至 2026.06</div>
+    </div>
+    <figure class="hero-visual reveal">
+      <img src="hero.png" alt="城市纪实封面影像">
+      <figcaption>城市纪实　/　2025 春　/　35mm 黑白</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ABOUT + CONTENTS -->
+<section class="section alt" id="about">
+  <div class="wrap">
+    <div class="about-block reveal">
+      <div class="label-row"><span class="eyebrow">ABOUT / 自我介绍</span><span class="hairline"></span></div>
+      <div class="about-grid">
+        <div class="about-body">
+          <p class="about-lead">在城市与人的缝隙里，<br>练习准确地看见、克制地表达。</p>
+          <p>新闻学专业本科四年级。持续进行纪实摄影、短纪录片拍摄与新闻写作实践，关注公共生活、地方记忆与人的处境；参与过选题策划、现场拍摄、稿件撰写与后期制作的全流程。</p>
+          <p>以下按能力板块整理。图中影像与文字均为示例占位，可替换为本人作品。</p>
+        </div>
+        <div class="info">
+          <div class="info-list">姓名　　姓名待填<br>院校　　待填写<br>方向　　影像 / 文字 / 后期<br>邮箱　　name@example.com</div>
+          <div class="info-note">* 以上信息请在交付前替换</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="label-row"><span class="eyebrow">CONTENTS / 目录</span><span class="hairline"></span></div>
+      <div class="contents">
+        <a href="#photo"><span class="num">01</span><span>摄影</span><span class="en">PHOTOGRAPHY</span></a>
+        <a href="#layout"><span class="num">04</span><span>排版</span><span class="en">EDITORIAL</span></a>
+        <a href="#video"><span class="num">02</span><span>摄像</span><span class="en">VIDEOGRAPHY</span></a>
+        <a href="#post"><span class="num">05</span><span>后期</span><span class="en">POST-PRODUCTION</span></a>
+        <a href="#writing"><span class="num">03</span><span>文案</span><span class="en">WRITING</span></a>
+        <a href="#directing"><span class="num">06</span><span>编导</span><span class="en">DIRECTING</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 PHOTOGRAPHY / FLIP BOOK -->
+<section class="section" id="photo">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">01 / PHOTOGRAPHY</div>
+        <h2>摄影</h2>
+        <p class="sec-desc">按主题翻阅 · 4 组主题 / 封面与内页均可替换</p>
+      </div>
+      <div class="ghost">01</div>
+    </div>
+
+    <div class="book reveal" id="book">
+      <div class="book-left">
+        <div class="shot"><img id="bookImage" src="photo-1.png" alt="摄影主题图"></div>
+        <figcaption id="bookCaption">CITY / 2025　·　图 01　·　35mm</figcaption>
+      </div>
+      <div class="book-right" id="bookRight"></div>
+    </div>
+
+    <div class="book-nav reveal">
+      <button class="round prev" id="prevBtn" aria-label="上一页">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M15 5L8 12L15 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="tabs" id="tabs"></div>
+      <div class="page-no" id="pageNo">01 / 04</div>
+      <button class="round next" id="nextBtn" aria-label="下一页">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <p class="flip-tip reveal">点击缩略页可直接跳转主题　·　左右箭头 / 键盘 ← → 翻页　·　移动端可左右滑动</p>
+  </div>
+</section>
+
+<!-- 02 VIDEOGRAPHY -->
+<section class="section" id="video" style="background:#FFFFFF">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">02 / VIDEOGRAPHY</div>
+        <h2>摄像</h2>
+        <p class="sec-desc">支持插入本地视频文件，或粘贴 B 站 / 腾讯视频嵌入链接</p>
+      </div>
+      <div class="ghost">02</div>
+    </div>
+
+    <div class="video-grid reveal">
+      <div>
+        <div class="player" id="player">
+          <div class="player-stage" id="stage">
+            <img src="video.png" alt="视频封面">
+            <div class="player-shade"></div>
+            <span class="player-badge">DOCUMENTARY / 2025</span>
+            <button class="play" id="playBtn" aria-label="插入并播放视频">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M7 4L20 12L7 20V4Z" fill="#1C1B19"/></svg>
+            </button>
+            <div class="player-bottom">
+              <div class="track"><i></i></div>
+              <div class="timecode">01:08　/　03:42</div>
+            </div>
+          </div>
+          <video id="localVideo" controls playsinline style="display:none"></video>
+          <div class="embed-box" id="embedBox" style="display:none"></div>
+        </div>
+        <div class="video-tools">
+          <div class="tool-row">
+            <button class="tool" id="pickLocal">插入本地视频 MP4</button>
+            <button class="tool" id="showEmbed">粘贴嵌入链接</button>
+            <button class="tool ghost-btn" id="resetVideo">恢复示例封面</button>
+          </div>
+          <div class="embed-row" id="embedRow" style="display:none">
+            <input id="embedInput" placeholder="粘贴 B 站 / 腾讯视频 / YouTube 链接，或整段 iframe 代码">
+            <button class="tool" id="embedGo">嵌入</button>
+          </div>
+          <p class="status" id="videoStatus">当前为示例封面。选择本地视频或粘贴链接后，播放器会立即替换为真实视频。</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="video-list" id="workList">
+          <h4>SELECTED WORKS / 作品列表</h4>
+          <button class="work-item on" data-title="《回声》　｜　乡村纪实短片" data-index="0"><strong>01　《回声》乡村纪实短片</strong><small>导演 / 摄影 / 剪辑　·　03:42　·　2025</small></button>
+          <button class="work-item" data-title="《一场演出》　｜　舞台纪录" data-index="1"><strong>02　《一场演出》舞台纪录</strong><small>摄像 / 剪辑　·　06:18　·　2025</small></button>
+          <button class="work-item" data-title="《校园一日》　｜　人物访谈" data-index="2"><strong>03　《校园一日》人物访谈</strong><small>编导 / 摄像　·　04:26　·　2024</small></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-row reveal">
+      <h3 id="videoTitle">《回声》　｜　乡村纪实短片</h3>
+      <span>本地 MP4 上传　/　B 站·腾讯视频 iframe 嵌入　/　封面可替换</span>
+    </div>
+  </div>
+</section>
+
+<!-- 03 WRITING -->
+<section class="section" id="writing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">03 / WRITING</div>
+        <h2>文案</h2>
+        <p class="sec-desc">标注体裁、篇数与传播量，让文字能力可被衡量</p>
+      </div>
+      <div class="ghost">03</div>
+    </div>
+    <div class="reveal">
+      <div class="write-row"><div class="write-num">01</div><div><h3>新闻稿与新闻评论</h3><p>校园融媒体中心实习期间，独立采写消息与评论 18 篇，其中 3 篇被校级平台头条转载。</p><div class="data">2024—2026　·　18 篇　·　校级融媒体</div></div><div class="write-thumb"><img src="photo-1.png" alt="配图"></div></div>
+      <div class="write-row"><div class="write-num">02</div><div><h3>深度报道与人物特稿</h3><p>围绕老城改造与手艺人群体完成系列特稿，负责选题、访谈、资料核查与成稿。</p><div class="data">2025　·　4 篇　·　约 1.2 万字</div></div><div class="write-thumb"><img src="photo-3.png" alt="配图"></div></div>
+      <div class="write-row"><div class="write-num">03</div><div><h3>影评与非虚构书评</h3><p>长期撰写影视与非虚构书评，单篇最高阅读 6,486，累计 9 篇两千字以上长评。</p><div class="data">2023—2026　·　9 篇　·　单篇最高 6,486 阅读</div></div><div class="write-thumb"><img src="photo-4.png" alt="配图"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 EDITORIAL DESIGN -->
+<section class="section alt" id="layout">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">04 / EDITORIAL DESIGN</div>
+        <h2>排版</h2>
+        <p class="sec-desc">刊物跨页、活动海报与长图文的网格与字阶控制</p>
+      </div>
+      <div class="ghost">04</div>
+    </div>
+    <div class="layout-grid reveal">
+      <div>
+        <div class="sample sample-main" data-label="SPREAD / INDESIGN"></div>
+        <div class="sample-cap">01　杂志跨页 / 专题《城与河》　·　InDesign</div>
+      </div>
+      <div class="sample-col">
+        <div><div class="sample sample-sm" data-label="POSTER / TYPE SCALE"></div><div class="sample-cap">02　活动海报 / 讲座系列视觉</div></div>
+        <div><div class="sample sample-sm" data-label="LONGFORM / GRID"></div><div class="sample-cap">03　公众号长图文 / 数据版式</div></div>
+      </div>
+    </div>
+    <p class="placeholder-note">* 样张为示例占位，可替换为实际刊物、海报或推文截图</p>
+  </div>
+</section>
+
+<!-- 05 POST PRODUCTION -->
+<section class="section dark" id="post">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">05 / POST-PRODUCTION</div>
+        <h2>音视频后期处理</h2>
+        <p class="sec-desc">剪辑 / 调色 / 混音　·　Premiere · DaVinci Resolve · Audition</p>
+      </div>
+      <div class="ghost">05</div>
+    </div>
+    <div class="post-grid reveal">
+      <div class="wave" id="wave"></div>
+      <div class="post-list">
+        <div><strong>剪辑　叙事结构与节奏</strong><span>粗剪 → 精剪 → 字幕 → 输出　·　成片 12 支</span></div>
+        <div><strong>调色　统一影调与氛围</strong><span>一级校正 → 风格化 LUT → 分镜匹配</span></div>
+        <div><strong>音频　人声与现场声处理</strong><span>降噪 → 响度统一 → 配乐与混音</span></div>
+        <div class="post-spec">交付规格　1080P / H.264 / 立体声 / 含字幕文件</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 DIRECTING -->
+<section class="section" id="directing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">06 / DIRECTING &amp; PRODUCING</div>
+        <h2>编导工作</h2>
+        <p class="sec-desc">从选题到成片：策划、脚本、现场统筹与交付</p>
+      </div>
+      <div class="ghost">06</div>
+    </div>
+    <div class="project-grid reveal">
+      <div class="project"><div class="p-num">PROJECT 01 / 2025</div><h3>《回声》乡村纪实短片</h3><div class="role">编导 / 脚本 / 现场统筹</div><p>以三位返乡青年的口述为线索，记录村庄一年的变化。独立完成选题论证、分镜脚本、拍摄调度与后期统筹。</p><div class="p-data">4 人团队　·　拍摄 3 天　·　成片 03:42</div></div>
+      <div class="project"><div class="p-num">PROJECT 02 / 2024</div><h3>《一场演出》后台纪录</h3><div class="role">编导 / 采访 / 剪辑</div><p>跟随校园剧社从排练到公演，以后台视角呈现一台戏的生成过程。负责人物采访提纲与双机位调度。</p><div class="p-data">6 人团队　·　跟拍 14 天　·　成片 06:18</div></div>
+    </div>
+    <div class="workflow reveal"><div class="eyebrow">WORKFLOW / 制作流程</div><div class="steps">选题　—　调研　—　脚本　—　拍摄　—　剪辑　—　成片</div><p>每个环节均可展开对应的过程材料：选题单、脚本、分镜表、拍摄计划与剪辑工程截图。</p></div>
+  </div>
+</section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-top"><h2>期待与你共事</h2><a href="mailto:name@example.com">name@example.com</a></div>
+    <div class="foot-line"></div>
+    <div class="foot-bottom"><span>2026　个人作品集　·　姓名待填</span><span>返回顶部　/　下载简历　/　联系方式</span></div>
+    <div class="foot-mark">PORTFOLIO</div>
+  </div>
+</footer>
+
+<script>
+/* ---------- 摄影：可翻阅的主题册 ---------- */
+const themes = [
+  {n:'01', cn:'城市纪实', en:'STREET DOCUMENTARY', img:'photo-1.png', cap:'CITY / 2025　·　图 01　·　35mm',
+   desc:'以旁观者的距离记录街巷、行人与日常秩序。持续拍摄两年，按光线与季节编排成四组小系列；每组保留拍摄时间、地点与器材信息。',
+   meta:'32 幅　·　2024—2026　·　黑白 / 数码'},
+  {n:'02', cn:'舞台剧场', en:'STAGE & THEATRE', img:'photo-2.png', cap:'STAGE / 2025　·　图 02　·　50mm',
+   desc:'校园剧社与小型剧场的演出记录，累计拍摄话剧、小品专场 5 场。以固定机位与低照度拍摄为主，保留舞台光比与现场感。',
+   meta:'成片数百张　·　5 场演出　·　低照度 / 定焦'},
+  {n:'03', cn:'人物肖像', en:'DOCUMENTARY PORTRAIT', img:'photo-3.png', cap:'PORTRAIT / 2025　·　图 03　·　50mm',
+   desc:'围绕手艺人与返乡青年完成的一组环境肖像。以自然光和一次访谈为基础，让被摄者回到自己的日常场景里。',
+   meta:'16 位受访者　·　2024—2026　·　自然光'},
+  {n:'04', cn:'自然风景', en:'LANDSCAPE & LIGHT', img:'photo-4.png', cap:'LANDSCAPE / 2026　·　图 04　·　广角',
+   desc:'自备单反设备期间的日常拍摄，关注雾、水面与天光的变化。以低饱和与大面积留白作为统一的后期语言。',
+   meta:'40 幅　·　2023—2026　·　数码 / 低饱和'}
+];
+const N = themes.length;
+let current = 0, busy = false;
+const book = document.getElementById('book');
+const bookRight = document.getElementById('bookRight');
+const bookImage = document.getElementById('bookImage');
+const bookCaption = document.getElementById('bookCaption');
+const tabs = document.getElementById('tabs');
+const pageNo = document.getElementById('pageNo');
+
+function rightInner(t){
+  return '<div class="r-num">THEME&nbsp; '+t.n+' / 0'+N+'</div>'+
+    '<h3>'+t.cn+'</h3>'+
+    '<div class="r-en">'+t.en+'</div>'+
+    '<p class="r-desc">'+t.desc+'</p>'+
+    '<div class="r-meta">'+t.meta+'</div>'+
+    '<div class="mini-label">主题缩页 / 点击跳转</div>'+
+    '<div class="minis">'+themes.map((x,i)=>'<button data-jump="'+i+'" class="'+(x.n===t.n?'on':'')+'" title="'+x.cn+'"><img src="'+x.img+'" alt="'+x.cn+'"></button>').join('')+'</div>'+
+    '<div class="r-hint">点击缩略页跳转　/　使用下方箭头逐页翻阅</div>';
+}
+function render(i){
+  const t = themes[i];
+  bookImage.style.opacity = .25;
+  setTimeout(()=>{ bookImage.src = t.img; bookImage.style.opacity = 1; }, 120);
+  bookCaption.textContent = t.cap;
+  bookRight.innerHTML = rightInner(t);
+  pageNo.textContent = t.n+' / 0'+N;
+  [...tabs.children].forEach((el,k)=>el.classList.toggle('on', k===i));
+  bookRight.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.jump)));
+}
+function flipTo(to, dir){
+  if(busy || to===current) return; busy = true;
+  const flap = document.createElement('div');
+  flap.className = 'page-flap book-right';
+  flap.innerHTML = rightInner(dir > 0 ? themes[current] : themes[to]);
+  book.appendChild(flap);
+  render(to); current = to;
+  requestAnimationFrame(()=>flap.classList.add(dir > 0 ? 'flip-next' : 'flip-prev'));
+  setTimeout(()=>{ flap.remove(); busy = false; }, 740);
+}
+function turn(dir){ flipTo((current + dir + N) % N, dir); }
+function go(i){ if(i===current || busy) return; flipTo(i, i > current ? 1 : -1); }
+tabs.innerHTML = themes.map((t,i)=>'<button class="tab'+(i===0?' on':'')+'" data-i="'+i+'"><div class="thumb"><img src="'+t.img+'" alt="'+t.cn+'"></div><span>'+t.n+' '+t.cn+'</span></button>').join('');
+tabs.addEventListener('click', e=>{ const b = e.target.closest('[data-i]'); if(b) go(+b.dataset.i); });
+document.getElementById('prevBtn').addEventListener('click', ()=>turn(-1));
+document.getElementById('nextBtn').addEventListener('click', ()=>turn(1));
+document.addEventListener('keydown', e=>{
+  if(/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  if(e.key==='ArrowRight'){ turn(1); } else if(e.key==='ArrowLeft'){ turn(-1); }
+});
+let touchX = null;
+book.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
+book.addEventListener('touchend', e=>{
+  if(touchX===null) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if(Math.abs(dx)>45) turn(dx<0 ? 1 : -1);
+}, {passive:true});
+render(0);
+
+/* ---------- 摄像：插入视频 ---------- */
+const stage = document.getElementById('stage');
+const localVideo = document.getElementById('localVideo');
+const embedBox = document.getElementById('embedBox');
+const embedRow = document.getElementById('embedRow');
+const embedInput = document.getElementById('embedInput');
+const videoStatus = document.getElementById('videoStatus');
+const fileInput = document.createElement('input');
+fileInput.type='file'; fileInput.accept='video/*'; fileInput.style.display='none';
+document.body.appendChild(fileInput);
+let objectUrl = null;
+function show(mode){
+  stage.style.display = mode==='stage' ? 'block' : 'none';
+  localVideo.style.display = mode==='local' ? 'block' : 'none';
+  embedBox.style.display = mode==='embed' ? 'block' : 'none';
+}
+document.getElementById('pickLocal').addEventListener('click', ()=>fileInput.click());
+document.getElementById('playBtn').addEventListener('click', ()=>{
+  embedRow.style.display = 'flex';
+  embedInput.focus();
+  videoStatus.textContent = '示例封面不可播放：请上传本地 MP4，或在此粘贴视频链接 / iframe 代码。';
+});
+fileInput.addEventListener('change', e=>{
+  const f = e.target.files[0]; if(!f) return;
+  if(objectUrl) URL.revokeObjectURL(objectUrl);
+  objectUrl = URL.createObjectURL(f);
+  embedBox.innerHTML=''; localVideo.src = objectUrl; show('local');
+  videoStatus.textContent = '已插入本地视频：'+f.name+'　（预览有效，正式发布时把文件放进站点目录即可）';
+});
+document.getElementById('showEmbed').addEventListener('click', ()=>{
+  embedRow.style.display = embedRow.style.display==='flex' ? 'none' : 'flex';
+  if(embedRow.style.display==='flex') embedInput.focus();
+});
+document.getElementById('embedGo').addEventListener('click', ()=>{
+  const raw = embedInput.value.trim(); if(!raw){ videoStatus.textContent='请先粘贴链接或 iframe 代码。'; return; }
+  let url = '';
+  const iframeSrc = raw.match(/src\s*=\s*["']([^"']+)["']/i);
+  if(iframeSrc) url = iframeSrc[1];
+  else {
+    const bv = raw.match(/(BV[0-9A-Za-z]{10})/);
+    const qq = raw.match(/(?:vid=|\/)([a-zA-Z0-9]{11})(?:\.html)?/);
+    const yt = raw.match(/(?:v=|youtu\.be\/|embed\/)([0-9A-Za-z_-]{11})/);
+    if(bv) url = 'https://player.bilibili.com/player.html?bvid='+bv[1]+'&page=1&high_quality=1&danmaku=0';
+    else if(raw.includes('v.qq.com') && qq) url = 'https://v.qq.com/txp/iframe/player.html?vid='+qq[1];
+    else if(yt) url = 'https://www.youtube.com/embed/'+yt[1];
+    else if(/^https?:\/\//.test(raw)) url = raw;
+    else { videoStatus.textContent='未识别的链接。支持 B 站 BV 号、腾讯视频 vid、YouTube 链接或整段 iframe 代码。'; return; }
+  }
+  if(url.startsWith('//')) url = 'https:'+url;
+  localVideo.pause();
+  embedBox.innerHTML = '<iframe src="'+url+'" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="no-referrer" scrolling="no" frameborder="0"></iframe>';
+  show('embed');
+  videoStatus.textContent = '已嵌入外部视频。若播放窗空白，多为该平台限制了内嵌播放，可改用「插入本地视频 MP4」。';
+});
+embedInput.addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('embedGo').click(); });
+document.getElementById('resetVideo').addEventListener('click', ()=>{
+  localVideo.pause(); localVideo.removeAttribute('src'); localVideo.load();
+  embedBox.innerHTML=''; embedRow.style.display='none'; embedInput.value='';
+  show('stage'); videoStatus.textContent='已恢复示例封面。';
+});
+document.querySelectorAll('.work-item').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.work-item').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  document.getElementById('videoTitle').textContent = b.dataset.title;
+}));
+
+/* ---------- 音轨波形 ---------- */
+const wave = document.getElementById('wave');
+let seed = 17;
+for(let i=0;i<52;i++){
+  seed = (seed*73+41)%101;
+  const h = 18 + (seed%64);
+  const bar = document.createElement('i');
+  bar.style.height = h+'%';
+  wave.appendChild(bar);
+}
+
+/* ---------- 滚动效果 ---------- */
+const reveals = document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }}),{threshold:.12});
+  reveals.forEach(el=>io.observe(el));
+  setTimeout(()=>reveals.forEach(el=>el.classList.add('in')),1600);
+} else reveals.forEach(el=>el.classList.add('in'));
+
+const sections = [...document.querySelectorAll('main section[id], footer[id]')];
+const navA = [...document.querySelectorAll('#nav a')];
+const progress = document.getElementById('progress');
+function onScroll(){
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.width = (h>0 ? (window.scrollY/h*100) : 0)+'%';
+  let active = '';
+  for(const s of sections){ if(s.getBoundingClientRect().top <= 140) active = s.id; }
+  navA.forEach(a=>a.classList.toggle('active', a.getAttribute('href')==='#'+active));
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+</script>
+</body>
+</html>

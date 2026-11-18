@@ -169,6 +169,10 @@ h1{font-family:var(--serif);font-size:clamp(48px,5vw,72px);line-height:1.36;font
 .write-row h3{font-family:var(--serif);font-size:26px;font-weight:600;margin-bottom:10px}
 .write-row p{font-size:14px;line-height:2;color:var(--muted)}
 .write-row .data{font-size:12px;color:var(--accent);margin-top:10px;letter-spacing:.06em}
+.write-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.write-links a{display:inline-flex;align-items:center;gap:6px;font-size:12px;letter-spacing:.04em;color:var(--ink);border:1px solid var(--line);padding:7px 13px;text-decoration:none;transition:border-color .25s,background .25s,color .25s}
+.write-links a:hover{border-color:var(--accent);background:var(--accent);color:#fff}
+.write-links a svg{width:11px;height:11px}
 .write-thumb{height:148px;overflow:hidden;background:#D6D2C8}
 .write-thumb img{width:100%;height:100%;object-fit:cover;filter:grayscale(1);transition:filter .4s,transform .4s}
 .write-row:hover .write-thumb img{filter:grayscale(0);transform:scale(1.04)}
@@ -214,6 +218,13 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
 .foot-top{display:flex;justify-content:space-between;align-items:center;gap:30px}
 .foot-top h2{font-family:var(--serif);font-size:44px;font-weight:600}
 .foot-top a{font-family:var(--latin);font-size:16px;letter-spacing:.12em;color:var(--accent-soft);border-bottom:1px solid rgba(169,189,208,.4);padding-bottom:4px}
+.foot-social{display:flex;align-items:center;justify-content:space-between;gap:60px;margin-top:64px;padding:38px 44px;border:1px solid #3A3833;background:#201F1C}
+.foot-social-text h3{font-family:var(--serif);font-size:28px;font-weight:600;color:var(--paper);margin-bottom:14px}
+.foot-social-text p{font-size:13px;color:#9B978F;line-height:2;max-width:420px}
+.foot-social-text .dy-id{display:inline-block;font-family:var(--latin);font-size:15px;letter-spacing:.1em;color:var(--accent-soft);border-bottom:1px solid rgba(169,189,208,.4);padding-bottom:3px;margin-top:12px}
+.foot-qr{flex:none;width:132px;background:#fff;padding:8px}
+.foot-qr img{width:100%;height:auto;display:block}
+.foot-qr span{display:block;text-align:center;font-family:var(--latin);font-size:9px;letter-spacing:.12em;color:#6B675F;margin-top:6px}
 .foot-line{height:1px;background:#3A3833;margin:44px 0 26px}
 .foot-bottom{display:flex;justify-content:space-between;font-size:12px;color:#7E7A72;letter-spacing:.08em}
 .foot-mark{font-family:var(--latin);font-size:clamp(60px,10vw,120px);font-weight:300;letter-spacing:.06em;color:#26241F;line-height:1;margin-top:50px;user-select:none}
@@ -236,6 +247,7 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
   .layout-grid,.project-grid{grid-template-columns:1fr}
   .navlinks{display:none}
   .ghost{font-size:80px}
+  .foot-social{gap:28px;padding:28px}
 }
 @media(max-width:640px){
   .wrap{width:calc(100% - 36px)}
@@ -254,6 +266,8 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
   .contents{grid-template-columns:1fr;gap:14px 0}
   .contents .en{display:none}
   .foot-top{flex-direction:column;align-items:flex-start}
+  .foot-social{flex-direction:column-reverse;align-items:flex-start;gap:22px;padding:24px}
+  .foot-qr{width:150px}
   .foot-bottom{flex-direction:column;gap:10px}
   .topbar .who{display:none}
 }
@@ -269,7 +283,7 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
       <a href="#photo">摄影</a><a href="#video">摄像</a><a href="#writing">文案</a>
       <a href="#layout">排版</a><a href="#post">后期</a><a href="#directing">编导</a><a href="#contact">联系</a>
     </nav>
-    <div class="who">姓名待填 · 新闻学</div>
+    <div class="who">罗三三 · 新闻学</div>
   </div>
 </header>
 
@@ -280,7 +294,7 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
     <div class="reveal">
       <div class="eyebrow">PERSONAL PORTFOLIO — 2026</div>
       <h1>看见现场，<br>也写下现场</h1>
-      <p class="hero-sub">新闻学专业 · 本科四年级　｜　摄影 / 摄像 / 文案 / 排版 / 后期 / 编导</p>
+      <p class="hero-sub">南通大学新闻学 · 本科四年级　｜　影像 / AIGC 新媒体运营 / 后期 / 编导</p>
       <a class="btn-primary" href="#about">浏览作品
         <svg viewBox="0 0 16 16" fill="none"><path d="M8 2V14M8 14L3 9M8 14L13 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -301,12 +315,11 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
       <div class="about-grid">
         <div class="about-body">
           <p class="about-lead">在城市与人的缝隙里，<br>练习准确地看见、克制地表达。</p>
-          <p>新闻学专业本科四年级。持续进行纪实摄影、短纪录片拍摄与新闻写作实践，关注公共生活、地方记忆与人的处境；参与过选题策划、现场拍摄、稿件撰写与后期制作的全流程。</p>
-          <p>以下按能力板块整理。图中影像与文字均为示例占位，可替换为本人作品。</p>
+          <p>南通大学新闻学本科四年级。具备政府宣传部门、AIGC 企业两段实习经历；擅长纪实影像、短视频项目统筹、新闻采写、AIGC 新媒体运营，熟悉选题策划、摄制、内容分发完整链路。作品刊登于天眼新闻、南通发布等官方平台，拥有内容矩阵搭建、赛事专题项目统筹实践经验，持续关注地方记忆、民生纪实类题材。</p>
         </div>
         <div class="info">
-          <div class="info-list">姓名　　姓名待填<br>院校　　待填写<br>方向　　影像 / 文字 / 后期<br>邮箱　　name@example.com</div>
-          <div class="info-note">* 以上信息请在交付前替换</div>
+          <div class="info-list">姓名　　罗三三<br>院校　　南通大学<br>方向　　影像 / AIGC 新媒体运营 / 后期 / 编导<br>邮箱　　sansanluo33@yeah.net</div>
+          <div class="info-note">* 影像作品合集见页脚抖音二维码</div>
         </div>
       </div>
     </div>
@@ -399,7 +412,7 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
       <div>
         <div class="video-list" id="workList">
           <h4>SELECTED WORKS / 作品列表</h4>
-          <button class="work-item on" data-index="0"><strong>01　《未完成的审判》</strong><small>原创创意微短片　·　灯光设计、编剧　·　02:18</small></button>
+          <button class="work-item on" data-index="0"><strong>01　《未完成的审判》</strong><small>原创创意微短片　·　灯光设计、摄像　·　02:18</small></button>
           <button class="work-item" data-index="1"><strong>02　《我记得》</strong><small>原创音乐影像 MV　·　演员（出镜）　·　04:58</small></button>
           <button class="work-item" data-index="2"><strong>03　《新闻》</strong><small>原创新闻直播访谈　·　后期剪辑　·　05:01</small></button>
           <button class="work-item" data-index="3"><strong>04　《对，我是学新闻学的》</strong><small>媒介反思短片　·　制片　·　10:02</small></button>
@@ -409,7 +422,7 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
 
     <div class="meta-row reveal">
       <h3 id="videoTitle">《未完成的审判》　｜　原创创意微短片</h3>
-      <span id="videoRole">灯光设计、编剧</span>
+      <span id="videoRole">灯光设计、摄像</span>
     </div>
   </div>
 </section>
@@ -429,6 +442,7 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
       <div class="write-row"><div class="write-num">01</div><div><h3>新闻稿与新闻评论</h3><p>校园融媒体中心实习期间，独立采写消息与评论 18 篇，其中 3 篇被校级平台头条转载。</p><div class="data">2024—2026　·　18 篇　·　校级融媒体</div></div><div class="write-thumb"><img src="photo-1.png" alt="配图"></div></div>
       <div class="write-row"><div class="write-num">02</div><div><h3>深度报道与人物特稿</h3><p>围绕老城改造与手艺人群体完成系列特稿，负责选题、访谈、资料核查与成稿。</p><div class="data">2025　·　4 篇　·　约 1.2 万字</div></div><div class="write-thumb"><img src="photo-3.png" alt="配图"></div></div>
       <div class="write-row"><div class="write-num">03</div><div><h3>影评与非虚构书评</h3><p>长期撰写影视与非虚构书评，单篇最高阅读 6,486，累计 9 篇两千字以上长评。</p><div class="data">2023—2026　·　9 篇　·　单篇最高 6,486 阅读</div></div><div class="write-thumb"><img src="photo-4.png" alt="配图"></div></div>
+      <div class="write-row"><div class="write-num">04</div><div><h3>媒体实习刊发稿件｜寒假媒体实习</h3><p>实习期间完成民生赛事专题报道，原创内容于天眼新闻刊发，实现公众号跨平台二次传播。共计 2 组内容被省级官媒收录。</p><div class="data">2026　·　天眼新闻　·　省级官媒收录 2 组</div><div class="write-links"><a href="https://share.eyesnews.cn/news/news-news_detail-news_id-11515117105376.html" target="_blank" rel="noopener">新闻链接 1 <svg viewBox="0 0 16 16" fill="none"><path d="M5 3h8v8M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://share.eyesnews.cn/news/news-news_detail-news_id-11515117106931.html" target="_blank" rel="noopener">新闻链接 2 <svg viewBox="0 0 16 16" fill="none"><path d="M5 3h8v8M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div><div class="write-thumb"><img src="photo-2.png" alt="配图"></div></div>
     </div>
   </div>
 </section>
@@ -454,7 +468,7 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
         <div><div class="sample sample-sm" data-label="LONGFORM / GRID"></div><div class="sample-cap">03　公众号长图文 / 数据版式</div></div>
       </div>
     </div>
-    <p class="placeholder-note">* 样张为示例占位，可替换为实际刊物、海报或推文截图</p>
+    <p class="placeholder-note">* 刊物编审、海报与长图文版式设计，涵盖公众号推文与数据可视化呈现</p>
   </div>
 </section>
 
@@ -503,9 +517,17 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
 
 <footer id="contact">
   <div class="wrap">
-    <div class="foot-top"><h2>期待与你共事</h2><a href="mailto:name@example.com">name@example.com</a></div>
+    <div class="foot-top"><h2>期待与你共事</h2><a href="mailto:sansanluo33@yeah.net">sansanluo33@yeah.net</a></div>
+    <div class="foot-social">
+      <div class="foot-social-text">
+        <h3>更多影像作品</h3>
+        <p>纪实摄影、人像短片与城市观察的日常更新，都收录在抖音账号。扫码即可查看全部影像合集。</p>
+        <span class="dy-id">抖音号：iloveuu33</span>
+      </div>
+      <div class="foot-qr"><img src="douyin-qr.jpg?v=20261118" alt="抖音二维码"><span>SCAN TO FOLLOW</span></div>
+    </div>
     <div class="foot-line"></div>
-    <div class="foot-bottom"><span>2026　个人作品集　·　姓名待填</span><span>返回顶部　/　下载简历　/　联系方式</span></div>
+    <div class="foot-bottom"><span>2026　个人作品集　·　罗三三</span><span>南通大学　/　新闻学　/　影像与新媒体运营</span></div>
     <div class="foot-mark">PORTFOLIO</div>
   </div>
 </footer>
@@ -586,7 +608,7 @@ render(0);
 
 /* ---------- 摄像：四部作品播放器 ---------- */
 const WORKS = [
-  {cover:'cover-1.jpg?v=20261118', bvid:'BV1sbs26TEoN', badge:'01 / SHORT FILM',   title:'《未完成的审判》　｜　原创创意微短片',    role:'灯光设计、编剧',    dur:'02:18'},
+  {cover:'cover-1.jpg?v=20261118', bvid:'BV1sbs26TEoN', badge:'01 / SHORT FILM',   title:'《未完成的审判》　｜　原创创意微短片',    role:'灯光设计、摄像',    dur:'02:18'},
   {cover:'cover-2.jpg?v=20261118', bvid:'BV1kas26PEdT', badge:'02 / MUSIC VIDEO',  title:'《我记得》　｜　原创音乐影像 MV',        role:'演员（出镜）',      dur:'04:58'},
   {cover:'cover-3.jpg?v=20261118', bvid:'BV1Zws269EAX', badge:'03 / NEWS TALK',    title:'《新闻》　｜　原创新闻直播访谈',          role:'后期剪辑',          dur:'05:01'},
   {cover:'cover-4.jpg?v=20261118', bvid:'BV1CQs16aEVk', badge:'04 / SHORT FILM',   title:'《对，我是学新闻学的》　｜　媒介反思短片', role:'制片',              dur:'10:02'}

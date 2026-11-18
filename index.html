@@ -142,8 +142,9 @@ h1{font-family:var(--serif);font-size:clamp(48px,5vw,72px);line-height:1.36;font
 .embed-box iframe{width:100%;height:100%;border:0}
 .video-list{padding-top:6px}
 .video-list h4{font-family:var(--latin);font-size:11px;letter-spacing:.26em;color:var(--accent);font-weight:500;margin-bottom:20px}
-.work-item{display:block;width:100%;text-align:left;padding:16px 0;border-top:1px solid #E7E4DC;transition:padding-left .25s,color .25s}
-.work-item:hover,.work-item.on{padding-left:10px}
+.work-item{position:relative;display:block;width:100%;text-align:left;padding:16px 0;border-top:1px solid #E7E4DC;transition:color .25s,background .25s}
+.work-item:hover{background:linear-gradient(90deg,rgba(58,83,107,.06),transparent 65%)}
+.work-item.on::before{content:'';position:absolute;left:-12px;top:16px;bottom:16px;width:2px;background:var(--accent)}
 .work-item strong{display:block;font-size:15px;font-weight:500;color:var(--ink)}
 .work-item small{display:block;font-size:12px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
 .work-item.on strong{color:var(--accent)}
@@ -364,7 +365,7 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
       <div>
         <div class="eyebrow">02 / VIDEOGRAPHY</div>
         <h2>摄像</h2>
-        <p class="sec-desc">支持插入本地视频文件，或粘贴 B 站 / 腾讯视频嵌入链接</p>
+        <p class="sec-desc">四部原创影像作品　·　点击右侧片名即可播放</p>
       </div>
       <div class="ghost">02</div>
     </div>
@@ -373,15 +374,15 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
       <div>
         <div class="player" id="player">
           <div class="player-stage" id="stage">
-            <img src="video.png" alt="视频封面">
+            <img src="cover-1.jpg?v=20261118" id="playerCover" alt="作品封面">
             <div class="player-shade"></div>
-            <span class="player-badge">DOCUMENTARY / 2025</span>
-            <button class="play" id="playBtn" aria-label="插入并播放视频">
+            <span class="player-badge" id="playerBadge">01 / SHORT FILM</span>
+            <button class="play" id="playBtn" aria-label="播放视频">
               <svg viewBox="0 0 24 24" fill="none"><path d="M7 4L20 12L7 20V4Z" fill="#1C1B19"/></svg>
             </button>
             <div class="player-bottom">
-              <div class="track"><i></i></div>
-              <div class="timecode">01:08　/　03:42</div>
+              <div class="track"><i id="trackFill"></i></div>
+              <div class="timecode" id="timecode">00:00　/　02:17</div>
             </div>
           </div>
           <video id="localVideo" controls playsinline style="display:none"></video>
@@ -389,31 +390,32 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
         </div>
         <div class="video-tools">
           <div class="tool-row">
-            <button class="tool" id="pickLocal">插入本地视频 MP4</button>
-            <button class="tool" id="showEmbed">粘贴嵌入链接</button>
-            <button class="tool ghost-btn" id="resetVideo">恢复示例封面</button>
+            <button class="tool ghost-btn" id="showEmbed">改用外部链接播放</button>
+            <button class="tool ghost-btn" id="pickLocal">上传本地视频</button>
+            <button class="tool ghost-btn" id="resetVideo">恢复封面</button>
           </div>
           <div class="embed-row" id="embedRow" style="display:none">
             <input id="embedInput" placeholder="粘贴 B 站 / 腾讯视频 / YouTube 链接，或整段 iframe 代码">
             <button class="tool" id="embedGo">嵌入</button>
           </div>
-          <p class="status" id="videoStatus">当前为示例封面。选择本地视频或粘贴链接后，播放器会立即替换为真实视频。</p>
+          <p class="status" id="videoStatus">点击右侧片名或播放键观看。封面取自各片实际画面，时长自动识别。</p>
         </div>
       </div>
 
       <div>
         <div class="video-list" id="workList">
           <h4>SELECTED WORKS / 作品列表</h4>
-          <button class="work-item on" data-title="《回声》　｜　乡村纪实短片" data-index="0"><strong>01　《回声》乡村纪实短片</strong><small>导演 / 摄影 / 剪辑　·　03:42　·　2025</small></button>
-          <button class="work-item" data-title="《一场演出》　｜　舞台纪录" data-index="1"><strong>02　《一场演出》舞台纪录</strong><small>摄像 / 剪辑　·　06:18　·　2025</small></button>
-          <button class="work-item" data-title="《校园一日》　｜　人物访谈" data-index="2"><strong>03　《校园一日》人物访谈</strong><small>编导 / 摄像　·　04:26　·　2024</small></button>
+          <button class="work-item on" data-index="0"><strong>01　《未完成的审判》</strong><small>原创创意微短片　·　灯光设计、编剧　·　02:17</small></button>
+          <button class="work-item" data-index="1"><strong>02　《我记得》</strong><small>原创音乐影像 MV　·　演员（出镜）　·　04:58</small></button>
+          <button class="work-item" data-index="2"><strong>03　《新闻》</strong><small>原创新闻直播访谈　·　后期剪辑　·　05:00</small></button>
+          <button class="work-item" data-index="3"><strong>04　《对，我是学新闻学的》</strong><small>媒介反思短片　·　制片　·　10:01</small></button>
         </div>
       </div>
     </div>
 
     <div class="meta-row reveal">
-      <h3 id="videoTitle">《回声》　｜　乡村纪实短片</h3>
-      <span>本地 MP4 上传　/　B 站·腾讯视频 iframe 嵌入　/　封面可替换</span>
+      <h3 id="videoTitle">《未完成的审判》　｜　原创创意微短片</h3>
+      <span id="videoRole">灯光设计、编剧</span>
     </div>
   </div>
 </section>
@@ -588,8 +590,20 @@ book.addEventListener('touchend', e=>{
 }, {passive:true});
 render(0);
 
-/* ---------- 摄像：插入视频 ---------- */
+/* ---------- 摄像：四部作品播放器 ---------- */
+const WORKS = [
+  {cover:'cover-1.jpg?v=20261118', src:'video-1.mp4', badge:'01 / SHORT FILM',   title:'《未完成的审判》　｜　原创创意微短片',    role:'灯光设计、编剧',    dur:'02:17', sec:137},
+  {cover:'cover-2.jpg?v=20261118', src:'video-2.mp4', badge:'02 / MUSIC VIDEO',  title:'《我记得》　｜　原创音乐影像 MV',        role:'演员（出镜）',      dur:'04:58', sec:298},
+  {cover:'cover-3.jpg?v=20261118', src:'video-3.mp4', badge:'03 / NEWS TALK',    title:'《新闻》　｜　原创新闻直播访谈',          role:'后期剪辑',          dur:'05:00', sec:300},
+  {cover:'cover-4.jpg?v=20261118', src:'video-4.mp4', badge:'04 / SHORT FILM',   title:'《对，我是学新闻学的》　｜　媒介反思短片', role:'制片',              dur:'10:01', sec:601}
+];
 const stage = document.getElementById('stage');
+const playerCover = document.getElementById('playerCover');
+const playerBadge = document.getElementById('playerBadge');
+const timecode = document.getElementById('timecode');
+const trackFill = document.getElementById('trackFill');
+const videoTitle = document.getElementById('videoTitle');
+const videoRole = document.getElementById('videoRole');
 const localVideo = document.getElementById('localVideo');
 const embedBox = document.getElementById('embedBox');
 const embedRow = document.getElementById('embedRow');
@@ -598,24 +612,61 @@ const videoStatus = document.getElementById('videoStatus');
 const fileInput = document.createElement('input');
 fileInput.type='file'; fileInput.accept='video/*'; fileInput.style.display='none';
 document.body.appendChild(fileInput);
-let objectUrl = null;
+let objectUrl = null, curWork = 0, usingCustom = false;
 function show(mode){
   stage.style.display = mode==='stage' ? 'block' : 'none';
   localVideo.style.display = mode==='local' ? 'block' : 'none';
   embedBox.style.display = mode==='embed' ? 'block' : 'none';
 }
-document.getElementById('pickLocal').addEventListener('click', ()=>fileInput.click());
-document.getElementById('playBtn').addEventListener('click', ()=>{
-  embedRow.style.display = 'flex';
-  embedInput.focus();
-  videoStatus.textContent = '示例封面不可播放：请上传本地 MP4，或在此粘贴视频链接 / iframe 代码。';
+function fmt(s){
+  if(!isFinite(s)) return '00:00';
+  const m=Math.floor(s/60), ss=Math.floor(s%60);
+  return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');
+}
+function selectWork(i, autoplay){
+  curWork = i;
+  const w = WORKS[i];
+  document.querySelectorAll('.work-item').forEach((b,j)=>b.classList.toggle('on', j===i));
+  playerCover.src = w.cover;
+  playerBadge.textContent = w.badge;
+  videoTitle.textContent = w.title;
+  videoRole.textContent = w.role;
+  timecode.textContent = '00:00　/　'+w.dur;
+  trackFill.style.width = '0%';
+  localVideo.pause(); localVideo.removeAttribute('src'); localVideo.load();
+  embedBox.innerHTML=''; embedRow.style.display='none'; usingCustom=false;
+  show('stage');
+  if(autoplay) playWork();
+}
+function playWork(){
+  const w = WORKS[curWork];
+  localVideo.src = w.src;
+  localVideo.pause(); localVideo.currentTime = 0;
+  show('local');
+  const p = localVideo.play();
+  if(p && p.catch) p.catch(()=>{ videoStatus.textContent='视频未能自动播放，点击播放器上的播放键即可。'; });
+  videoStatus.textContent = '正在播放：'+w.title+'　（片长 '+w.dur+'）';
+}
+localVideo.addEventListener('timeupdate', ()=>{
+  const d = localVideo.duration;
+  if(isFinite(d) && d>0){
+    trackFill.style.width = Math.min(100, localVideo.currentTime/d*100)+'%';
+    timecode.textContent = fmt(localVideo.currentTime)+'　/　'+fmt(d);
+  }
 });
+localVideo.addEventListener('ended', ()=>{ show('stage'); trackFill.style.width='0%'; });
+document.getElementById('playBtn').addEventListener('click', playWork);
+document.querySelectorAll('.work-item').forEach(b=>b.addEventListener('click',()=>{
+  selectWork(Number(b.dataset.index), true);
+}));
+document.getElementById('pickLocal').addEventListener('click', ()=>fileInput.click());
 fileInput.addEventListener('change', e=>{
   const f = e.target.files[0]; if(!f) return;
   if(objectUrl) URL.revokeObjectURL(objectUrl);
   objectUrl = URL.createObjectURL(f);
-  embedBox.innerHTML=''; localVideo.src = objectUrl; show('local');
-  videoStatus.textContent = '已插入本地视频：'+f.name+'　（预览有效，正式发布时把文件放进站点目录即可）';
+  embedBox.innerHTML=''; localVideo.src = objectUrl; show('local'); localVideo.play().catch(()=>{});
+  usingCustom = true;
+  videoStatus.textContent = '已替换为本地视频：'+f.name+'　（仅本次预览有效）';
 });
 document.getElementById('showEmbed').addEventListener('click', ()=>{
   embedRow.style.display = embedRow.style.display==='flex' ? 'none' : 'flex';
@@ -639,20 +690,11 @@ document.getElementById('embedGo').addEventListener('click', ()=>{
   if(url.startsWith('//')) url = 'https:'+url;
   localVideo.pause();
   embedBox.innerHTML = '<iframe src="'+url+'" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="no-referrer" scrolling="no" frameborder="0"></iframe>';
-  show('embed');
-  videoStatus.textContent = '已嵌入外部视频。若播放窗空白，多为该平台限制了内嵌播放，可改用「插入本地视频 MP4」。';
+  show('embed'); usingCustom = true;
+  videoStatus.textContent = '已嵌入外部视频。若播放窗空白，多为该平台限制了内嵌播放。';
 });
 embedInput.addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('embedGo').click(); });
-document.getElementById('resetVideo').addEventListener('click', ()=>{
-  localVideo.pause(); localVideo.removeAttribute('src'); localVideo.load();
-  embedBox.innerHTML=''; embedRow.style.display='none'; embedInput.value='';
-  show('stage'); videoStatus.textContent='已恢复示例封面。';
-});
-document.querySelectorAll('.work-item').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('.work-item').forEach(x=>x.classList.remove('on'));
-  b.classList.add('on');
-  document.getElementById('videoTitle').textContent = b.dataset.title;
-}));
+document.getElementById('resetVideo').addEventListener('click', ()=>selectWork(curWork, false));
 
 /* ---------- 音轨波形 ---------- */
 const wave = document.getElementById('wave');

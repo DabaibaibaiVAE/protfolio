@@ -382,33 +382,27 @@ footer{background:var(--dark);color:var(--paper);padding:104px 0 60px}
             </button>
             <div class="player-bottom">
               <div class="track"><i id="trackFill"></i></div>
-              <div class="timecode" id="timecode">00:00　/　02:17</div>
+              <div class="timecode" id="timecode">00:00　/　02:18</div>
             </div>
           </div>
-          <video id="localVideo" controls playsinline style="display:none"></video>
           <div class="embed-box" id="embedBox" style="display:none"></div>
         </div>
         <div class="video-tools">
           <div class="tool-row">
-            <button class="tool ghost-btn" id="showEmbed">改用外部链接播放</button>
-            <button class="tool ghost-btn" id="pickLocal">上传本地视频</button>
+            <button class="tool" id="openBili">在 B 站打开本片 ↗</button>
             <button class="tool ghost-btn" id="resetVideo">恢复封面</button>
           </div>
-          <div class="embed-row" id="embedRow" style="display:none">
-            <input id="embedInput" placeholder="粘贴 B 站 / 腾讯视频 / YouTube 链接，或整段 iframe 代码">
-            <button class="tool" id="embedGo">嵌入</button>
-          </div>
-          <p class="status" id="videoStatus">点击右侧片名或播放键观看。封面取自各片实际画面，时长自动识别。</p>
+          <p class="status" id="videoStatus">点击右侧片名或播放键，即可观看对应影片（B 站高清播放）。</p>
         </div>
       </div>
 
       <div>
         <div class="video-list" id="workList">
           <h4>SELECTED WORKS / 作品列表</h4>
-          <button class="work-item on" data-index="0"><strong>01　《未完成的审判》</strong><small>原创创意微短片　·　灯光设计、编剧　·　02:17</small></button>
+          <button class="work-item on" data-index="0"><strong>01　《未完成的审判》</strong><small>原创创意微短片　·　灯光设计、编剧　·　02:18</small></button>
           <button class="work-item" data-index="1"><strong>02　《我记得》</strong><small>原创音乐影像 MV　·　演员（出镜）　·　04:58</small></button>
-          <button class="work-item" data-index="2"><strong>03　《新闻》</strong><small>原创新闻直播访谈　·　后期剪辑　·　05:00</small></button>
-          <button class="work-item" data-index="3"><strong>04　《对，我是学新闻学的》</strong><small>媒介反思短片　·　制片　·　10:01</small></button>
+          <button class="work-item" data-index="2"><strong>03　《新闻》</strong><small>原创新闻直播访谈　·　后期剪辑　·　05:01</small></button>
+          <button class="work-item" data-index="3"><strong>04　《对，我是学新闻学的》</strong><small>媒介反思短片　·　制片　·　10:02</small></button>
         </div>
       </div>
     </div>
@@ -592,10 +586,10 @@ render(0);
 
 /* ---------- 摄像：四部作品播放器 ---------- */
 const WORKS = [
-  {cover:'cover-1.jpg?v=20261118', src:'video-1.mp4', badge:'01 / SHORT FILM',   title:'《未完成的审判》　｜　原创创意微短片',    role:'灯光设计、编剧',    dur:'02:17', sec:137},
-  {cover:'cover-2.jpg?v=20261118', src:'video-2.mp4', badge:'02 / MUSIC VIDEO',  title:'《我记得》　｜　原创音乐影像 MV',        role:'演员（出镜）',      dur:'04:58', sec:298},
-  {cover:'cover-3.jpg?v=20261118', src:'video-3.mp4', badge:'03 / NEWS TALK',    title:'《新闻》　｜　原创新闻直播访谈',          role:'后期剪辑',          dur:'05:00', sec:300},
-  {cover:'cover-4.jpg?v=20261118', src:'video-4.mp4', badge:'04 / SHORT FILM',   title:'《对，我是学新闻学的》　｜　媒介反思短片', role:'制片',              dur:'10:01', sec:601}
+  {cover:'cover-1.jpg?v=20261118', bvid:'BV1sbs26TEoN', badge:'01 / SHORT FILM',   title:'《未完成的审判》　｜　原创创意微短片',    role:'灯光设计、编剧',    dur:'02:18'},
+  {cover:'cover-2.jpg?v=20261118', bvid:'BV1kas26PEdT', badge:'02 / MUSIC VIDEO',  title:'《我记得》　｜　原创音乐影像 MV',        role:'演员（出镜）',      dur:'04:58'},
+  {cover:'cover-3.jpg?v=20261118', bvid:'BV1Zws269EAX', badge:'03 / NEWS TALK',    title:'《新闻》　｜　原创新闻直播访谈',          role:'后期剪辑',          dur:'05:01'},
+  {cover:'cover-4.jpg?v=20261118', bvid:'BV1CQs16aEVk', badge:'04 / SHORT FILM',   title:'《对，我是学新闻学的》　｜　媒介反思短片', role:'制片',              dur:'10:02'}
 ];
 const stage = document.getElementById('stage');
 const playerCover = document.getElementById('playerCover');
@@ -604,24 +598,12 @@ const timecode = document.getElementById('timecode');
 const trackFill = document.getElementById('trackFill');
 const videoTitle = document.getElementById('videoTitle');
 const videoRole = document.getElementById('videoRole');
-const localVideo = document.getElementById('localVideo');
 const embedBox = document.getElementById('embedBox');
-const embedRow = document.getElementById('embedRow');
-const embedInput = document.getElementById('embedInput');
 const videoStatus = document.getElementById('videoStatus');
-const fileInput = document.createElement('input');
-fileInput.type='file'; fileInput.accept='video/*'; fileInput.style.display='none';
-document.body.appendChild(fileInput);
-let objectUrl = null, curWork = 0, usingCustom = false;
+let curWork = 0;
 function show(mode){
   stage.style.display = mode==='stage' ? 'block' : 'none';
-  localVideo.style.display = mode==='local' ? 'block' : 'none';
   embedBox.style.display = mode==='embed' ? 'block' : 'none';
-}
-function fmt(s){
-  if(!isFinite(s)) return '00:00';
-  const m=Math.floor(s/60), ss=Math.floor(s%60);
-  return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');
 }
 function selectWork(i, autoplay){
   curWork = i;
@@ -633,67 +615,24 @@ function selectWork(i, autoplay){
   videoRole.textContent = w.role;
   timecode.textContent = '00:00　/　'+w.dur;
   trackFill.style.width = '0%';
-  localVideo.pause(); localVideo.removeAttribute('src'); localVideo.load();
-  embedBox.innerHTML=''; embedRow.style.display='none'; usingCustom=false;
+  embedBox.innerHTML='';
   show('stage');
   if(autoplay) playWork();
 }
 function playWork(){
   const w = WORKS[curWork];
-  localVideo.src = w.src;
-  localVideo.pause(); localVideo.currentTime = 0;
-  show('local');
-  const p = localVideo.play();
-  if(p && p.catch) p.catch(()=>{ videoStatus.textContent='视频未能自动播放，点击播放器上的播放键即可。'; });
+  const url = 'https://player.bilibili.com/player.html?bvid='+w.bvid+'&page=1&high_quality=1&danmaku=0&autoplay=1';
+  embedBox.innerHTML = '<iframe src="'+url+'" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="no-referrer" scrolling="no" frameborder="0"></iframe>';
+  show('embed');
   videoStatus.textContent = '正在播放：'+w.title+'　（片长 '+w.dur+'）';
 }
-localVideo.addEventListener('timeupdate', ()=>{
-  const d = localVideo.duration;
-  if(isFinite(d) && d>0){
-    trackFill.style.width = Math.min(100, localVideo.currentTime/d*100)+'%';
-    timecode.textContent = fmt(localVideo.currentTime)+'　/　'+fmt(d);
-  }
-});
-localVideo.addEventListener('ended', ()=>{ show('stage'); trackFill.style.width='0%'; });
 document.getElementById('playBtn').addEventListener('click', playWork);
 document.querySelectorAll('.work-item').forEach(b=>b.addEventListener('click',()=>{
   selectWork(Number(b.dataset.index), true);
 }));
-document.getElementById('pickLocal').addEventListener('click', ()=>fileInput.click());
-fileInput.addEventListener('change', e=>{
-  const f = e.target.files[0]; if(!f) return;
-  if(objectUrl) URL.revokeObjectURL(objectUrl);
-  objectUrl = URL.createObjectURL(f);
-  embedBox.innerHTML=''; localVideo.src = objectUrl; show('local'); localVideo.play().catch(()=>{});
-  usingCustom = true;
-  videoStatus.textContent = '已替换为本地视频：'+f.name+'　（仅本次预览有效）';
+document.getElementById('openBili').addEventListener('click', ()=>{
+  window.open('https://www.bilibili.com/video/'+WORKS[curWork].bvid, '_blank', 'noopener');
 });
-document.getElementById('showEmbed').addEventListener('click', ()=>{
-  embedRow.style.display = embedRow.style.display==='flex' ? 'none' : 'flex';
-  if(embedRow.style.display==='flex') embedInput.focus();
-});
-document.getElementById('embedGo').addEventListener('click', ()=>{
-  const raw = embedInput.value.trim(); if(!raw){ videoStatus.textContent='请先粘贴链接或 iframe 代码。'; return; }
-  let url = '';
-  const iframeSrc = raw.match(/src\s*=\s*["']([^"']+)["']/i);
-  if(iframeSrc) url = iframeSrc[1];
-  else {
-    const bv = raw.match(/(BV[0-9A-Za-z]{10})/);
-    const qq = raw.match(/(?:vid=|\/)([a-zA-Z0-9]{11})(?:\.html)?/);
-    const yt = raw.match(/(?:v=|youtu\.be\/|embed\/)([0-9A-Za-z_-]{11})/);
-    if(bv) url = 'https://player.bilibili.com/player.html?bvid='+bv[1]+'&page=1&high_quality=1&danmaku=0';
-    else if(raw.includes('v.qq.com') && qq) url = 'https://v.qq.com/txp/iframe/player.html?vid='+qq[1];
-    else if(yt) url = 'https://www.youtube.com/embed/'+yt[1];
-    else if(/^https?:\/\//.test(raw)) url = raw;
-    else { videoStatus.textContent='未识别的链接。支持 B 站 BV 号、腾讯视频 vid、YouTube 链接或整段 iframe 代码。'; return; }
-  }
-  if(url.startsWith('//')) url = 'https:'+url;
-  localVideo.pause();
-  embedBox.innerHTML = '<iframe src="'+url+'" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="no-referrer" scrolling="no" frameborder="0"></iframe>';
-  show('embed'); usingCustom = true;
-  videoStatus.textContent = '已嵌入外部视频。若播放窗空白，多为该平台限制了内嵌播放。';
-});
-embedInput.addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('embedGo').click(); });
 document.getElementById('resetVideo').addEventListener('click', ()=>selectWork(curWork, false));
 
 /* ---------- 音轨波形 ---------- */
